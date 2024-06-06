@@ -1,1 +1,49 @@
 GIT repository commands
+git --version
+git log --> it show all the latest commits
+git log --oneline
+git init --> to initiate the git tracking use ls -a to show the hidden files
+git status --> to see if git is tracking or not
+git add <> <> --> from working directory transfers to the staging directory
+git commit -m "first-commit <some name>" --> commits to the local directory 
+git remote add origin git@github.com:rajbharat63/Devops.git  --> add the remote GIT repository to the current working directory
+git push origin master--> push towards the repository
+
+********
+root@ip-172-31-28-247:~/Devops/project1# git status
+On branch master
+nothing to commit, working tree clean
+root@ip-172-31-28-247:~/Devops/project1# git log
+commit 41085f699cce231e4af2566173fb8d2922aa45d1 (HEAD -> master, origin2/master)
+Author: root <root@ip-172-31-28-247.ec2.internal>             ---------------->>>>>> to change the name and email id
+Date:   Fri May 24 03:19:36 2024 +0000
+
+
+root@ip-172-31-28-247:~/Devops/project1# git config --global user.email "bharatrajn@gmail.com"
+root@ip-172-31-28-247:~/Devops/project1# git config --global user.name "Raj"
+
+_________
+
+created the a sample file and pushed to the repository
+
+root@ip-172-31-28-247:~/Devops/project1# git log
+commit ffe3fc322e13539f413fcda6a9bfeb5a9118b0f2 (HEAD -> master, sunrise/master)
+Author: Raj <bharatrajn@gmail.com> --------------------------------------->>>>>>>>>>>>>>>> name and email got changed
+Date:   Fri May 24 03:24:00 2024 +0000
+
+    fourth-commit
+*******
+
+
+git branch 2nd-branch master ----------> creating 2nd-branch branch from master branch
+git branch --> list all the branches
+git push sunrise 2nd-branch --> pushing our branch to the git hub repository
+
+git checkout master or git checkout <branch name> --> this will allow us to switch between the branches
+
+git checkout -b 4th-branch master -----> creating 4th-branch from the master branch and checkout
+git log --graph --pretty=oneline
+
+git stash --> will move uncommited files to the stash area and then do git status to get clean output
+git stash list --> will show the files added to the stash list
+git show stash
