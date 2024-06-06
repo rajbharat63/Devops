@@ -21,6 +21,7 @@ Navigate to EC2 service --> Network abd Security --> Keypair --> import the key 
 
 eksctl create nodegroup --cluster=eksdemo-raj1 --name=eksdemo-raj1-ng --node-type=m5.large --nodes=2 --nodes-min=2 --nodes-max=4 --node-volume-size=20 --ssh-access --ssh-public-key=my-aws-access-key --managed --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access
 
+
 Under Cloud Formation --> a new stack gets created "eksctl-eksdemo-raj1-nodegroup-eksdemo-raj1-ng" --> if you go inside it provides you the resources required the creation of nodegroup.
 
 Under EKS service --> go into the master cluster --> Compute --> gives you the worker nodes which got created.
@@ -29,4 +30,36 @@ Under EKS service --> go into the master cluster --> Compute --> gives you the w
 #kubectl get nodes -o wide--> gives you the worker nodes which was created. this command shows wide options with the IP, IMAGE, Container RUNTIME
 
 
+____________________
 
+Creation of pods
+
+applying the deployment.yaml file
+
+kubectl apply -f deployment.yaml
+[cloudshell-user@ip-10-140-102-84 ~]$ kubectl get pods -o wide
+NAME                            READY   STATUS    RESTARTS   AGE   IP               NODE                            NOMINATED NODE   READINESS GATES
+nginx-deploy-5bdd559bcc-5btpw   1/1     Running   0          10m   192.168.8.68     ip-192-168-27-78.ec2.internal   <none>           <none>
+nginx-deploy-5bdd559bcc-cgvpz   1/1     Running   0          10m   192.168.55.93    ip-192-168-42-51.ec2.internal   <none>           <none>
+nginx-deploy-5bdd559bcc-hlbwm   1/1     Running   0          10m   192.168.61.199   ip-192-168-42-51.ec2.internal   <none>           <none>
+
+
+[cloudshell-user@ip-10-140-102-84 ~]$ kubectl delete -f deployment.yaml 
+deployment.apps "nginx-deploy" deleted
+
+[cloudshell-user@ip-10-140-102-84 ~]$ kubectl get pods -o wide
+No resources found in default namespace.
+
+
+_________________________
+
+
+Deleting the EKS cluster which was created ----------> Deletion can be done via CloudFormation service in AWS
+
+eksctl get cluster
+
+eksctl get nodegroup
+
+eksctl delete nodegroup --cluster=eksdemo-raj1 --name=eksdemo-raj1-ng
+
+eksctl delete cluster eksdemo-raj1
