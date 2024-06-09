@@ -63,3 +63,8 @@ eksctl get nodegroup
 eksctl delete nodegroup --cluster=eksdemo-raj1 --name=eksdemo-raj1-ng
 
 eksctl delete cluster eksdemo-raj1
+
+___________________________
+
+
+
