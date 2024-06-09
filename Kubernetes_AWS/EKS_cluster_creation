@@ -67,4 +67,27 @@ eksctl delete cluster eksdemo-raj1
 ___________________________
 
 
+Ingress --> Path or URL based routing.
+
+Node A --> 3 pods of application/Microservice A and 3 pods of application/Microservice B
+
+Ingress will route the traffic to the microservice or application or pod/container based on the path or URL based routing. Each individual service will be defined for application A and B.
+
+Ingress has 2 components
+
+1. Ingress Controller --> Deployed this in the cluster to read the ingress resource and its rules. This is kind of Load Balancer. Example: nfinx ingress controller, AWS ALB etc
+2. Ingress Resource --> Rules to re-direcct the request to the services
+
+
+Working:
+
+1. Install nignx ingress controller in the cluster and this will install AWS Elastic LB in the cloud.
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.0/deploy/static/provider/cloud/deploy.yaml
+
+After installing nginx ingress controller --> NS, SVC, Roles, Rolebindings, pods etc are created as part of above yaml.
+
+2. This will create a AWS LB --> Go to EC2 --> LoadBalancer
+
+
+
 
