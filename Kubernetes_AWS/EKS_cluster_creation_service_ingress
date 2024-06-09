@@ -123,9 +123,13 @@ ingress.networking.k8s.io/ingress-nginx created
 
 With a2aa0fd503c0b45b8ad631f530afcfd3-878639005.us-east-1.elb.amazonaws.com/test we will reach ingress-nginx controller (controller got created in ingress-nginx ns) service (nginx-svc in the default ns) -->>>> pods were deployed with a map to the nginx-svc on default ns.
 
+****Deletion in the reverse order, this is costly ***
 
-
-
+kubectl delete -f ingress_rules.yaml 
+kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.0/deploy/static/provider/cloud/deploy.yaml
+kubectl delete -f application1.yaml 
+eksctl delete nodegroup --cluster=eksdemo-raj1 --name=eksdemo-raj1-ng
+eksctl delete cluster eksdemo-raj1
 
 
 
