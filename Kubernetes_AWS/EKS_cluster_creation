@@ -88,6 +88,47 @@ After installing nginx ingress controller --> NS, SVC, Roles, Rolebindings, pods
 
 2. This will create a AWS LB --> Go to EC2 --> LoadBalancer
 
+3. From the YAML_files folder application1.yaml will deploy 2 replicas of pods and a service which routes the traffic towards the pods. If we not mention which type of service such as NordPort or LB or ClusterIP, by default this will create a ClusterIP service.
+
+kubectl apply -f application1.yaml
+
+[cloudshell-user@ip-10-138-181-71 ~]$ kubectl get all
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/nginx-deploy-7d69d6b977-272mx   1/1     Running   0          20s
+pod/nginx-deploy-7d69d6b977-glbl7   1/1     Running   0          20s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.100.0.1      <none>        443/TCP   125m
+service/nginx-svc    ClusterIP   10.100.164.21   <none>        80/TCP    20s
+
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx-deploy   2/2     2            2           20s
+
+NAME                                      DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-deploy-7d69d6b977   2         2         2       20s
+
+
+
+After creation of ClusterIP service if we try to connect to the application it will not be routed as the rules were not defined yet.
+
+[cloudshell-user@ip-10-138-181-71 ~]$ kubectl get svc -n ingress-nginx
+NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP                                                              PORT(S)                      AGE
+ingress-nginx-controller             LoadBalancer   10.100.239.237   a2aa0fd503c0b45b8ad631f530afcfd3-878639005.us-east-1.elb.amazonaws.com   80:31963/TCP,443:31171/TCP   16m
+ingress-nginx-controller-admission   ClusterIP      10.100.128.56    <none>                       443/TCP     
+
+Apply the ingress rule
+
+[cloudshell-user@ip-10-138-181-71 ~]$ kubectl apply -f ingress_rules.yaml 
+ingress.networking.k8s.io/ingress-nginx created
+
+With a2aa0fd503c0b45b8ad631f530afcfd3-878639005.us-east-1.elb.amazonaws.com/test we will reach ingress-nginx controller (controller got created in ingress-nginx ns) service (nginx-svc in the default ns) -->>>> pods were deployed with a map to the nginx-svc on default ns.
+
+
+
+
+
+
+
 
 
 
