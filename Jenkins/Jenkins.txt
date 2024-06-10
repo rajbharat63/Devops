@@ -1,1 +1,30 @@
 This is to install and configure Jenkins
+Create an EC2 instance for Jenkins
+https://www.jenkins.io/doc/book/installing/linux/#debianubuntu
+sudo apt-get update -y --> updating packages
+sudo apt install fontconfig openjdk-17-jre    --> java runtime install
+
+******
+Installing Jenkins
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+******
+
+lsof -i -P -n | grep LISTEN  --> on 8080 Jenkins is running
+
+Go to EC2 instance on AWS portal and select the Public IP and add 8080 port as the JENKINS is running on 8080 port.
+cat /var/lib/jenkins/secrets/initialAdminPassword    --> gives you the password of administrator
+
+Install suggested plugins
+
+
+
+
+
+
+
